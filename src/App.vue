@@ -18,7 +18,7 @@
     </div>
 
     <transition appear name="slide-in">
-      <div class="absolute top-full left-0 right-0 bg-slate-800 p-1 mx-2 rounded-b-md md:hidden" v-if="menu.show">
+      <div class="absolute top-full left-0 right-0 bg-slate-800 p-1 mx-2 rounded-b-md md:hidden z-[9999]" v-if="menu.show">
         <ul>
           <li v-for="link in links" :key="link.id">
             <a :href="link.path"
