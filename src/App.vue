@@ -33,15 +33,17 @@
   <main class="text-slate-600 leading-relaxed grow">
     <section class="bg-gray-100 max-w-5xl mx-auto p-6 lg:my-8 lg:rounded-lg">
 
-      <p>Hello World</p>
+      <PianoKeys />
 
     </section>
   </main>
 </template>
 <script>
 import { ref, onMounted, onUnmounted } from 'vue'
+import PianoKeys from './components/PianoKeys.vue'
 
 export default {
+  components: { PianoKeys },
   setup() {
     const menu = ref({
       show: false,
