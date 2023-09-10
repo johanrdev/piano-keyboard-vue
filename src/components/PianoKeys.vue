@@ -2,7 +2,9 @@
   <ul class="flex overflow-x-auto pb-8 sm:justify-center">
     <li v-for="key in piano.keys" :key="key.base" class="shrink-0 rounded-b" :class="{
       'w-16 h-60 mx-1 bg-white text-slate-500': key.color === 'W',
-      'w-12 h-40 -mx-6 z-10 bg-gray-900 text-slate-300': key.color === 'B'
+      'w-12 h-40 -mx-6 z-10 bg-gray-900 text-slate-300': key.color === 'B',
+      'bg-slate-300': key.pressed && key.color === 'W',
+      'bg-slate-500': key.pressed && key.color === 'B'
     }">
       <button @click="trigger(key)" class="inline-flex justify-center items-end w-full h-full cursor-pointer select-none">
         <span v-if="settings.labels.show">{{ key.base }}</span>
@@ -23,7 +25,8 @@ export default {
     })
 
     const piano = ref({
-      octave: { min: 2, max: 5, value: 3 },
+      range: [2, 5],
+      octave: 3,
       keys: [
         { base: 'C', color: 'W', pressed: false },
         { base: 'C#', color: 'B', pressed: false },
@@ -42,11 +45,19 @@ export default {
       ]
     })
 
+    const playback = ref({
+      duration: '4n'
+    })
+
     const synth = new Tone.Synth().toDestination()
 
     const trigger = (key) => {
-      const note = key.base + piano.value.octave.value
-      synth.triggerAttackRelease(note, '4n')
+      key.pressed = true
+
+      const note = key.base + piano.value.octave
+      synth.triggerAttackRelease(note, playback.value.duration)
+
+      setTimeout(() => key.pressed = false, Tone.Time('4n').toSeconds() * 1000)
     }
 
     return {
