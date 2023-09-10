@@ -1,7 +1,7 @@
 <template lang="html">
-  <nav class="bg-slate-700 relative text-slate-400 px-4 py-2" v-click-outside="menu.close">
+  <nav class="bg-slate-700 relative text-slate-400 px-2 py-2" v-click-outside="menu.close">
     <div class="max-w-5xl mx-auto flex justify-between">
-      <span class="text-2xl select-none inline-flex items-center h-12">AppName</span>
+      <span class="text-2xl select-none inline-flex items-center h-12">VuePiano</span>
       <button @click="menu.show = !menu.show"
         class="border-2 border-slate-500 w-12 h-12 shrink-0 rounded hover:text-slate-200 transition-all md:hidden">
         <font-awesome-icon icon="bars"></font-awesome-icon>
@@ -9,8 +9,8 @@
 
       <ul class="hidden md:flex">
         <li v-for="link in links" :key="link.id">
-          <a @click="console.log('clicked')"
-            class="block p-3 hover:bg-slate-600 hover:text-slate-200 transition-all rounded">
+          <a :href="link.path"
+            class="block p-3 hover:bg-slate-600 hover:text-slate-200 select-none cursor-pointer transition-all rounded">
             {{ link.name }}
           </a>
         </li>
@@ -29,6 +29,14 @@
       </div>
     </transition>
   </nav>
+
+  <main class="text-slate-600 leading-relaxed grow">
+    <section class="bg-gray-100 max-w-5xl mx-auto p-6 lg:my-8 lg:rounded-lg">
+
+      <p>Hello World</p>
+
+    </section>
+  </main>
 </template>
 <script>
 import { ref, onMounted, onUnmounted } from 'vue'
@@ -68,6 +76,17 @@ export default {
 }
 </script>
 <style lang="css">
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+html,
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+#app {
+  height: 100vh;
+}
+
 .slide-in-enter-from,
 .slide-in-leave-to {
   transform: translateX(-100%);
