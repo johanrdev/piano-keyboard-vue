@@ -31,10 +31,8 @@
   </nav>
 
   <main class="text-slate-600 leading-relaxed grow">
-    <section class="bg-gray-100 max-w-5xl mx-auto lg:my-8 lg:rounded-lg">
-
+    <section class="bg-gray-100 max-w-5xl mx-auto">
       <PianoKeys />
-
     </section>
   </main>
 </template>

@@ -12,6 +12,7 @@
 </template>
 <script>
 import { ref } from 'vue'
+import * as Tone from 'tone'
 
 export default {
   setup() {
@@ -41,8 +42,11 @@ export default {
       ]
     })
 
+    const synth = new Tone.Synth().toDestination()
+
     const trigger = (key) => {
-      console.log(key)
+      const note = key.base + piano.value.octave.value
+      synth.triggerAttackRelease(note, '4n')
     }
 
     return {
