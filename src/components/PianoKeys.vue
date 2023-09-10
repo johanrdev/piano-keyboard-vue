@@ -25,7 +25,7 @@ export default {
     })
 
     const piano = ref({
-      range: [2, 5],
+      range: [1, 6],
       octave: 3,
       keys: [
         { base: 'C', color: 'W', pressed: false },
@@ -60,9 +60,23 @@ export default {
       setTimeout(() => key.pressed = false, Tone.Time('4n').toSeconds() * 1000)
     }
 
-    const onKeydown = (event) => {
-      console.log(event.key)
+    const increaseOctave = () => {
+      piano.value.octave++
 
+      if (piano.value.octave > piano.value.range[1]) {
+        piano.value.octave = piano.value.range[1]
+      }
+    }
+
+    const decreaseOctave = () => {
+      piano.value.octave--
+
+      if (piano.value.octave < piano.value.range[0]) {
+        piano.value.octave = piano.value.range[0]
+      }
+    }
+
+    const onKeydown = (event) => {
       switch (event.key) {
         case 'z':
           trigger(piano.value.keys.find(k => k.base === 'C'))
@@ -99,6 +113,12 @@ export default {
           break
         case 'm':
           trigger(piano.value.keys.find(k => k.base === 'B'))
+          break
+        case '-':
+          decreaseOctave()
+          break
+        case '+':
+          increaseOctave()
           break
       }
     }
