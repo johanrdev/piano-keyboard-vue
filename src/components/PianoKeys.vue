@@ -1,8 +1,8 @@
 <template lang="html">
   <ul class="flex overflow-x-auto pb-8 sm:justify-center">
     <li v-for="key in piano.keys" :key="key.base" class="shrink-0 rounded-b" :class="{
-      'w-16 h-60 mx-1 bg-white text-slate-500': key.color === 'W',
-      'w-12 h-40 -mx-6 z-10 bg-gray-900 text-slate-300': key.color === 'B',
+      'w-16 h-40 mx-1 bg-white text-slate-500': key.color === 'W',
+      'w-12 h-20 -mx-6 z-10 bg-gray-900 text-slate-300': key.color === 'B',
       'bg-slate-300': key.pressed && key.color === 'W',
       'bg-slate-500': key.pressed && key.color === 'B'
     }">
@@ -13,7 +13,7 @@
   </ul>
 </template>
 <script>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import * as Tone from 'tone'
 
 export default {
@@ -59,6 +59,57 @@ export default {
 
       setTimeout(() => key.pressed = false, Tone.Time('4n').toSeconds() * 1000)
     }
+
+    const onKeydown = (event) => {
+      console.log(event.key)
+
+      switch (event.key) {
+        case 'z':
+          trigger(piano.value.keys.find(k => k.base === 'C'))
+          break
+        case 's':
+          trigger(piano.value.keys.find(k => k.base === 'C#'))
+          break
+        case 'x':
+          trigger(piano.value.keys.find(k => k.base === 'D'))
+          break
+        case 'd':
+          trigger(piano.value.keys.find(k => k.base === 'D#'))
+          break
+        case 'c':
+          trigger(piano.value.keys.find(k => k.base === 'E'))
+          break
+        case 'v':
+          trigger(piano.value.keys.find(k => k.base === 'F'))
+          break
+        case 'g':
+          trigger(piano.value.keys.find(k => k.base === 'F#'))
+          break
+        case 'b':
+          trigger(piano.value.keys.find(k => k.base === 'G'))
+          break
+        case 'h':
+          trigger(piano.value.keys.find(k => k.base === 'G#'))
+          break
+        case 'n':
+          trigger(piano.value.keys.find(k => k.base === 'A'))
+          break
+        case 'j':
+          trigger(piano.value.keys.find(k => k.base === 'A#'))
+          break
+        case 'm':
+          trigger(piano.value.keys.find(k => k.base === 'B'))
+          break
+      }
+    }
+
+    onMounted(() => {
+      document.addEventListener('keydown', onKeydown)
+    })
+
+    onUnmounted(() => {
+      document.removeEventListener('keydown', onKeydown)
+    })
 
     return {
       settings,
