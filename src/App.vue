@@ -1,5 +1,5 @@
 <template lang="html">
-  <nav class="bg-slate-700 relative text-slate-400 px-4 py-2">
+  <nav class="bg-slate-700 relative text-slate-400 px-4 py-2" v-click-outside="menu.close">
     <div class="max-w-5xl mx-auto flex justify-between">
       <span class="text-2xl select-none inline-flex items-center h-12">AppName</span>
       <button @click="menu.show = !menu.show"
@@ -9,15 +9,21 @@
 
       <ul class="hidden md:flex">
         <li v-for="link in links" :key="link.id">
-          <a :href="link.path" class="block p-3 hover:bg-slate-600 hover:text-slate-200 transition-all rounded">{{ link.name }}</a>
+          <a @click="console.log('clicked')"
+            class="block p-3 hover:bg-slate-600 hover:text-slate-200 transition-all rounded">
+            {{ link.name }}
+          </a>
         </li>
       </ul>
     </div>
+
     <transition appear name="slide-in">
-      <div class="absolute top-full left-0 right-0 bg-slate-800 p-1 mx-2 rounded-b-md md:hidden" v-if="menu.show" v-click-outside="menu.close">
+      <div class="absolute top-full left-0 right-0 bg-slate-800 p-1 mx-2 rounded-b-md md:hidden" v-if="menu.show">
         <ul>
           <li v-for="link in links" :key="link.id">
-            <a :href="link.path" class="block p-3 hover:bg-slate-600 hover:text-slate-200 transition-all rounded">{{ link.name }}</a>
+            <a :href="link.path"
+              class="block p-3 hover:bg-slate-600 hover:text-slate-200 transition-all rounded cursor-pointer">
+              {{ link.name }}</a>
           </li>
         </ul>
       </div>
@@ -65,15 +71,17 @@ export default {
 .slide-in-enter-from,
 .slide-in-leave-to {
   transform: translateX(-100%);
+  opacity: 0;
 }
 
 .slide-in-enter-to,
 .slide-in-leave-from {
   transform: translateX(0);
+  opacity: 1;
 }
 
 .slide-in-enter-active,
 .slide-in-leave-active {
-  transition: .35s ease-in-out;
+  transition: .35s ease;
 }
 </style>
