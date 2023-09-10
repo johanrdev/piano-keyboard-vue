@@ -46,10 +46,10 @@ export default {
     })
 
     const playback = ref({
-      duration: '4n'
+      duration: '2n'
     })
 
-    const synth = new Tone.Synth().toDestination()
+    const synth = new Tone.PolySynth().toDestination()
 
     const trigger = (key) => {
       key.pressed = true
@@ -57,7 +57,7 @@ export default {
       const note = key.base + piano.value.octave
       synth.triggerAttackRelease(note, playback.value.duration)
 
-      setTimeout(() => key.pressed = false, Tone.Time('4n').toSeconds() * 1000)
+      setTimeout(() => key.pressed = false, Tone.Time(playback.value.duration).toSeconds() * 1000)
     }
 
     const increaseOctave = () => {
@@ -78,40 +78,40 @@ export default {
 
     const onKeydown = (event) => {
       switch (event.key) {
-        case 'z':
+        case 'a':
           trigger(piano.value.keys.find(k => k.base === 'C'))
           break
-        case 's':
+        case 'w':
           trigger(piano.value.keys.find(k => k.base === 'C#'))
           break
-        case 'x':
+        case 's':
           trigger(piano.value.keys.find(k => k.base === 'D'))
           break
-        case 'd':
+        case 'e':
           trigger(piano.value.keys.find(k => k.base === 'D#'))
           break
-        case 'c':
+        case 'd':
           trigger(piano.value.keys.find(k => k.base === 'E'))
           break
-        case 'v':
+        case 'f':
           trigger(piano.value.keys.find(k => k.base === 'F'))
           break
-        case 'g':
+        case 't':
           trigger(piano.value.keys.find(k => k.base === 'F#'))
           break
-        case 'b':
+        case 'g':
           trigger(piano.value.keys.find(k => k.base === 'G'))
           break
-        case 'h':
+        case 'y':
           trigger(piano.value.keys.find(k => k.base === 'G#'))
           break
-        case 'n':
+        case 'h':
           trigger(piano.value.keys.find(k => k.base === 'A'))
           break
-        case 'j':
+        case 'u':
           trigger(piano.value.keys.find(k => k.base === 'A#'))
           break
-        case 'm':
+        case 'j':
           trigger(piano.value.keys.find(k => k.base === 'B'))
           break
         case '-':
