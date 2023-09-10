@@ -8,6 +8,24 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faBars)
 
+const clickOutside = {
+  beforeMount: (el, binding) => {
+    el.clickOutsideEvent = (event) => {
+      event.stopPropagation()
+      
+      if (!(el == event.target || el.contains(event.target)))  {
+        binding.value()
+      }
+    }
+    
+    document.addEventListener('mousedown', el.clickOutsideEvent)
+  },
+  unmounted: (el) => {
+    document.removeEventListener('mousedown', el.clickOutsideEvent)
+  }
+}
+
 const app = createApp(App)
+app.directive('click-outside', clickOutside)
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.mount('#app')

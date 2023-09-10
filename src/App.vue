@@ -14,7 +14,7 @@
       </ul>
     </div>
     <transition appear name="slide-in">
-      <div class="absolute top-full left-0 right-0 bg-slate-800 p-1" v-if="menu.show">
+      <div class="absolute top-full left-0 right-0 bg-slate-800 p-1 mx-2 rounded-b-md md:hidden" v-if="menu.show" v-click-outside="menu.close">
         <ul>
           <li v-for="link in links" :key="link.id">
             <a :href="link.path" class="block p-3 hover:bg-slate-600 hover:text-slate-200 transition-all rounded">{{ link.name }}</a>
@@ -25,12 +25,13 @@
   </nav>
 </template>
 <script>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 export default {
   setup() {
     const menu = ref({
-      show: false
+      show: false,
+      close: () => menu.value.show = false
     })
 
     const links = ref([
@@ -38,6 +39,20 @@ export default {
       { id: 2, name: 'About', path: '#' },
       { id: 3, name: 'Contact', path: '#' }
     ])
+
+    const onResize = () => {
+      if (window.innerWidth > 768 && menu.value.show) {
+        menu.value.show = false
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener('resize', onResize)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', onResize)
+    })
 
     return {
       menu,
