@@ -1,5 +1,5 @@
 <template lang="html">
-  <nav>
+  <nav class="flex justify-center my-2">
     <ul class="flex">
       <li class="w-10 h-10 m-0.5 rounded inline-flex" v-for="length in noteLengths" :key="length.length">
         <label class="relative grow">
