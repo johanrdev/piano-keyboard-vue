@@ -1,6 +1,6 @@
 <template lang="html">
   <ul class="flex overflow-x-auto pb-8 sm:justify-center">
-    <li v-for="key in piano.keys" :key="key.base" class="shrink-0 rounded-b" :class="{
+    <li v-for="key in piano.keys" :key="key.base" class="shrink-0 rounded-b transition-all" :class="{
       'w-16 h-40 mx-1 text-slate-500': key.color === 'W',
       'w-12 h-20 -mx-6 z-10 text-slate-300': key.color === 'B',
       'bg-white': !key.pressed && key.color === 'W',
@@ -51,15 +51,17 @@ export default {
       duration: '2n'
     })
 
-    const synth = new Tone.Synth().toDestination()
+    const synth = new Tone.Synth({
+      onsilence: () => {
+        piano.value.keys.forEach((key) => key.pressed = false)
+      }
+    }).toDestination()
 
     const trigger = (key) => {
       key.pressed = true
 
       const note = key.base + piano.value.octave
       synth.triggerAttackRelease(note, playback.value.duration)
-
-      setTimeout(() => key.pressed = false, Tone.Time(playback.value.duration).toSeconds() * 1000)
     }
 
     const increaseOctave = () => {
