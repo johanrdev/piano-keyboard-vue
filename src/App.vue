@@ -32,17 +32,21 @@
 
   <main class="text-slate-600 leading-relaxed grow">
     <section class="bg-gray-100 max-w-5xl mx-auto">
-      <PianoKeys />
+      <ControlPanel @update-note-length="onNoteLengthChanged" />
+      <PianoKeys ref="pianoKeys" />
     </section>
   </main>
 </template>
 <script>
 import { ref, onMounted, onUnmounted } from 'vue'
 import PianoKeys from './components/PianoKeys.vue'
+import ControlPanel from './components/ControlPanel.vue'
 
 export default {
-  components: { PianoKeys },
+  components: { PianoKeys, ControlPanel },
   setup() {
+    const pianoKeys = ref(null)
+    
     const menu = ref({
       show: false,
       close: () => menu.value.show = false
@@ -60,6 +64,10 @@ export default {
       }
     }
 
+    const onNoteLengthChanged = (val) => {
+      pianoKeys.value.setNoteLength(val)
+    }
+
     onMounted(() => {
       window.addEventListener('resize', onResize)
     })
@@ -69,8 +77,10 @@ export default {
     })
 
     return {
+      pianoKeys,
       menu,
-      links
+      links,
+      onNoteLengthChanged
     }
   }
 }

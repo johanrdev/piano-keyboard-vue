@@ -1,7 +1,7 @@
 <template lang="html">
   <ul class="flex overflow-x-auto pb-8 sm:justify-center">
-    <li v-for="key in piano.keys" :key="key.base" class="shrink-0 rounded-b transition-all" :class="{
-      'w-16 h-40 mx-1 text-slate-500': key.color === 'W',
+    <li v-for="key in piano.keys" :key="key.base" class="shrink-0 rounded-md transition-all" :class="{
+      'w-16 h-40 mx-0.5 text-slate-500': key.color === 'W',
       'w-12 h-20 -mx-6 z-10 text-slate-300': key.color === 'B',
       'bg-white': !key.pressed && key.color === 'W',
       'bg-gray-900': !key.pressed && key.color === 'B',
@@ -79,6 +79,10 @@ export default {
       }
     }
 
+    const setNoteLength = (val) => {
+      playback.value.duration = val.length
+    }
+
     const onKeydown = (event) => {
       switch (event.key) {
         case 'a':
@@ -137,7 +141,8 @@ export default {
     return {
       settings,
       piano,
-      trigger
+      trigger,
+      setNoteLength
     }
   }
 }
