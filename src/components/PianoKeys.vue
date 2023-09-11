@@ -1,8 +1,10 @@
 <template lang="html">
   <ul class="flex overflow-x-auto pb-8 sm:justify-center">
     <li v-for="key in piano.keys" :key="key.base" class="shrink-0 rounded-b" :class="{
-      'w-16 h-40 mx-1 bg-white text-slate-500': key.color === 'W',
-      'w-12 h-20 -mx-6 z-10 bg-gray-900 text-slate-300': key.color === 'B',
+      'w-16 h-40 mx-1 text-slate-500': key.color === 'W',
+      'w-12 h-20 -mx-6 z-10 text-slate-300': key.color === 'B',
+      'bg-white': !key.pressed && key.color === 'W',
+      'bg-gray-900': !key.pressed && key.color === 'B',
       'bg-slate-300': key.pressed && key.color === 'W',
       'bg-slate-500': key.pressed && key.color === 'B'
     }">
@@ -49,7 +51,7 @@ export default {
       duration: '2n'
     })
 
-    const synth = new Tone.PolySynth().toDestination()
+    const synth = new Tone.Synth().toDestination()
 
     const trigger = (key) => {
       key.pressed = true
