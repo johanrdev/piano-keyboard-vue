@@ -32,8 +32,8 @@
 
   <main class="text-slate-600 leading-relaxed grow">
     <section class="bg-gray-100 max-w-5xl mx-auto">
-      <ControlPanel @update-note-length="onNoteLengthChanged" />
-      <PianoKeys ref="pianoKeys" />
+      <ControlPanel ref="controlPanel" @update-note-length="onNoteLengthChanged" />
+      <PianoKeys ref="pianoKeys" @decrease-note-length="onDecreaseNoteLength" @increase-note-length="onIncreaseNoteLength" />
     </section>
   </main>
 </template>
@@ -46,6 +46,7 @@ export default {
   components: { PianoKeys, ControlPanel },
   setup() {
     const pianoKeys = ref(null)
+    const controlPanel = ref(null)
     
     const menu = ref({
       show: false,
@@ -68,6 +69,14 @@ export default {
       pianoKeys.value.setNoteLength(val)
     }
 
+    const onDecreaseNoteLength = () => {
+      controlPanel.value.decreaseNoteLength()
+    }
+
+    const onIncreaseNoteLength = () => {
+      controlPanel.value.increaseNoteLength()
+    }
+
     onMounted(() => {
       window.addEventListener('resize', onResize)
     })
@@ -78,9 +87,12 @@ export default {
 
     return {
       pianoKeys,
+      controlPanel,
       menu,
       links,
-      onNoteLengthChanged
+      onNoteLengthChanged,
+      onDecreaseNoteLength,
+      onIncreaseNoteLength
     }
   }
 }

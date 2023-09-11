@@ -5,7 +5,7 @@
         <label class="relative grow">
           <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl pointer-events-none" v-html="length.code"></span>
           <input type="radio" v-model="currentNoteLength" :value="length"
-            class="appearance-none w-full h-full bg-slate-300 checked:bg-teal-500 rounded cursor-pointer" @change="changeNoteLength()" />
+            class="appearance-none w-full h-full bg-slate-300 checked:bg-teal-500 rounded cursor-pointer transition-all" @change="changeNoteLength()" />
         </label>
       </li>
     </ul>
@@ -29,10 +29,32 @@ export default {
       emit('updateNoteLength', currentNoteLength.value)
     }
 
+    const decreaseNoteLength = () => {
+      let currentIndex = noteLengths.value.indexOf(currentNoteLength.value)
+      let previousIndex = currentIndex - 1
+
+      if (previousIndex >= 0) {
+        currentNoteLength.value = noteLengths.value[previousIndex]
+        emit('updateNoteLength', currentNoteLength.value)
+      }
+    }
+
+    const increaseNoteLength = () => {
+      let currentIndex = noteLengths.value.indexOf(currentNoteLength.value)
+      let nextIndex = currentIndex + 1
+
+      if (nextIndex <= noteLengths.value.length - 1) {
+        currentNoteLength.value = noteLengths.value[nextIndex]
+        emit('updateNoteLength', currentNoteLength.value)
+      }
+    }
+
     return {
       currentNoteLength,
       noteLengths,
-      changeNoteLength
+      changeNoteLength,
+      decreaseNoteLength,
+      increaseNoteLength
     }
   }
 }

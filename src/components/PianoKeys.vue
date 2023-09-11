@@ -19,7 +19,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import * as Tone from 'tone'
 
 export default {
-  setup() {
+  setup(_, { emit }) {
     const settings = ref({
       labels: {
         show: false
@@ -83,6 +83,14 @@ export default {
       playback.value.duration = val.length
     }
 
+    const increaseNoteLength = () => {
+      emit('increaseNoteLength')
+    }
+
+    const decreaseNoteLength = () => {
+      emit('decreaseNoteLength')
+    }
+
     const onKeydown = (event) => {
       switch (event.key) {
         case 'a':
@@ -126,6 +134,12 @@ export default {
           break
         case '+':
           increaseOctave()
+          break
+        case 'ArrowLeft':
+          decreaseNoteLength()
+          break
+        case 'ArrowRight':
+          increaseNoteLength()
           break
       }
     }
