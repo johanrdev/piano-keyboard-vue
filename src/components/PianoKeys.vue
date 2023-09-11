@@ -58,10 +58,9 @@ export default {
     }).toDestination()
 
     const trigger = (key) => {
-      key.pressed = true
-
       const note = key.base + piano.value.octave
       synth.triggerAttackRelease(note, playback.value.duration)
+      key.pressed = true
     }
 
     const increaseOctave = () => {
