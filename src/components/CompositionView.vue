@@ -2,11 +2,11 @@
   <ul class="flex bg-gray-200 p-4 overflow-x-auto" v-if="mergedData && mergedData.length">
     <li class="h-14 mr-1 last:mr-0 flex justify-center items-center bg-teal-300 border-teal-500 border-2 rounded-md"
       :class="{
-        'w-[25%]': data.duration === '16n',
-        'w-[50%]': data.duration === '8n',
-        'w-[100%]': data.duration === '4n',
-        'w-[200%]': data.duration === '2n',
-        'w-[400%]': data.duration === '1m'
+        'min-w-[20px] w-[20px]': data.duration === '16n',
+        'min-w-[40px] w-[40px]': data.duration === '8n',
+        'min-w-[80px] w-[80px]': data.duration === '4n',
+        'min-w-[160px] w-[160px]': data.duration === '2n',
+        'min-w-[320px] w-[320px]': data.duration === '1m'
       }" v-for="(data, index) in mergedData" :key="index">
       <span class="select-none text-3xl text-teal-700" v-html="useDurationCode(data.duration).code"></span>
     </li>
