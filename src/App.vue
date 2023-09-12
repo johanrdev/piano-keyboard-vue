@@ -1,7 +1,7 @@
 <template lang="html">
   <nav class="bg-slate-700 relative text-slate-400 px-2 py-2" v-click-outside="menu.close">
     <div class="max-w-5xl mx-auto flex justify-between">
-      <span class="text-2xl select-none inline-flex items-center h-12">VuePiano</span>
+      <span class="text-2xl select-none inline-flex items-center h-12">Vue3-MelodyMaker</span>
       <button @click="menu.show = !menu.show"
         class="border-2 border-slate-500 w-12 h-12 shrink-0 rounded hover:text-slate-200 transition-all md:hidden">
         <font-awesome-icon icon="bars"></font-awesome-icon>
@@ -34,6 +34,7 @@
     <section class="bg-gray-100 max-w-5xl mx-auto">
       <ControlPanel ref="controlPanel" @update-note-length="onNoteLengthChanged" />
       <PianoKeys ref="pianoKeys" @decrease-note-length="onDecreaseNoteLength" @increase-note-length="onIncreaseNoteLength" />
+      <CompositionView />
     </section>
   </main>
 </template>
@@ -41,9 +42,10 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import PianoKeys from './components/PianoKeys.vue'
 import ControlPanel from './components/ControlPanel.vue'
+import CompositionView from './components/CompositionView.vue'
 
 export default {
-  components: { PianoKeys, ControlPanel },
+  components: { PianoKeys, ControlPanel, CompositionView },
   setup() {
     const pianoKeys = ref(null)
     const controlPanel = ref(null)
