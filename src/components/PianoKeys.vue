@@ -80,7 +80,7 @@ export default {
     }
 
     const setNoteLength = (val) => {
-      playback.value.duration = val.length
+      playback.value.duration = val
     }
 
     const increaseNoteLength = () => {
