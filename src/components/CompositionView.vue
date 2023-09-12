@@ -1,5 +1,5 @@
 <template lang="html">
-  <ul class="flex bg-gray-200 p-4 overflow-x-auto flex-wrap" v-if="mergedData && mergedData.length">
+  <ul class="flex bg-gray-200 p-4 overflow-y-auto max-h-[200px] flex-wrap" v-if="mergedData && mergedData.length">
     <li class="h-14 mr-1 mb-1 last:mr-0 flex justify-center items-center bg-teal-300 border-teal-500 border-2 rounded-md"
       :class="{
         'min-w-[20px] w-[20px]': data.duration === '16n',
