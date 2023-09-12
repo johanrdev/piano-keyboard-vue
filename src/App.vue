@@ -33,8 +33,8 @@
   <main class="text-slate-600 leading-relaxed grow">
     <section class="bg-gray-100 max-w-5xl mx-auto">
       <ControlPanel ref="controlPanel" @update-note-length="onNoteLengthChanged" />
-      <PianoKeys ref="pianoKeys" @decrease-note-length="onDecreaseNoteLength" @increase-note-length="onIncreaseNoteLength" />
-      <CompositionView />
+      <PianoKeys ref="pianoKeys" @decrease-note-length="onDecreaseNoteLength" @increase-note-length="onIncreaseNoteLength" @add-note="onAddNote" />
+      <CompositionView ref="compositionView" />
     </section>
   </main>
 </template>
@@ -49,6 +49,7 @@ export default {
   setup() {
     const pianoKeys = ref(null)
     const controlPanel = ref(null)
+    const compositionView = ref(null)
     
     const menu = ref({
       show: false,
@@ -79,6 +80,10 @@ export default {
       controlPanel.value.increaseNoteLength()
     }
 
+    const onAddNote = (val) => {
+      compositionView.value.addNote(val)
+    }
+
     onMounted(() => {
       window.addEventListener('resize', onResize)
     })
@@ -90,11 +95,13 @@ export default {
     return {
       pianoKeys,
       controlPanel,
+      compositionView,
       menu,
       links,
       onNoteLengthChanged,
       onDecreaseNoteLength,
-      onIncreaseNoteLength
+      onIncreaseNoteLength,
+      onAddNote
     }
   }
 }

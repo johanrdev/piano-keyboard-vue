@@ -61,6 +61,8 @@ export default {
       const note = key.base + piano.value.octave
       synth.triggerAttackRelease(note, playback.value.duration)
       key.pressed = true
+
+      emit('addNote', { note, duration: playback.value.duration })
     }
 
     const increaseOctave = () => {
