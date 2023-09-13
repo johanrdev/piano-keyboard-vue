@@ -3,10 +3,12 @@ import './style.css'
 import App from './App.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faPlay, faStop } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faBars)
+library.add(faPlay)
+library.add(faStop)
 
 const clickOutside = {
   beforeMount: (el, binding) => {
