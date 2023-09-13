@@ -48,7 +48,7 @@ export default {
     })
 
     const playback = ref({
-      duration: '2n'
+      duration: '4n'
     })
 
     const synth = new Tone.Synth({
